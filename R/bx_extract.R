@@ -60,26 +60,3 @@ metrics[,1] <- do.call(c,lapply(strsplit(as.character(metrics[,1])," "),function
 return(structure(list(authors = authors, paper = paper, metrics = metrics),class = "biorxiv_paper"))
 }
 
-
-#' plot metric details for a paper
-#' @description plot a summary of the views a paper has had
-#' @param x the paper to plot a summary of
-#' @param type the data to plot, 'abs' for abstract views, 'dl' for PDF downloads
-#' @param ... extra parameters to pass
-#' @export
-#' @importFrom graphics plot lines
-plot.biorxiv_paper <- function(x,type="abs",...){
-  bxp <- x
-
-  if(is.null(bxp$metrics)){          
-    stop("There are no metrics available for this manuscript")
-  }
-  if(type=="abs"){
-    plot(bxp$metrics$date,bxp$metrics$Abstract,main = "Number of Abstract views",xlab="Date",ylab="Number of views")
-    lines(bxp$metrics$date,bxp$metrics$Abstract)
-  }
-  if(type=="dl"){
-    plot(bxp$metrics$date,bxp$metrics$PDF,main = "Number of PDF downloads",xlab="Date",ylab="Number of downloads")
-    lines(bxp$metrics$date,bxp$metrics$PDF)
-  }
-}
